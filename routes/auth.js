@@ -33,7 +33,7 @@ router.post(
   );
   
   router.post('/login', authController.login);
-  // router.get('/chat', isAuth, authController.getUserStatus);
+  
 
 
   module.exports = router;

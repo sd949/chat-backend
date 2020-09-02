@@ -1,8 +1,7 @@
 var express = require("express");
 var fs = require('fs');
 var path = require("path");
-// var morgan = require("morgan");
-// var cors = require("cors");
+
 var bodyParser = require('body-parser');
 const Chat = require('./models/message');
 
@@ -12,21 +11,9 @@ const authRoutes = require('./routes/auth');
 var app = express();
 var router = express.Router();
 
-//  const mongoose = require("mongoose");
-//  mongoose.Promise = global.Promise;
-//  mongoose.connect("mongodb+srv://sd949:sd949@swd-j8qfx.mongodb.net/chat?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
-//   .then(() => {
-//   console.log('Connected to MongoDB!!');
-//     const server = app.listen(8080);
-//     const io = require('./socket').init(server);
-//     io.on('connection', socket => {
-//       console.log('Client connected');
-//     });
-//   })
-//   .catch((err) => console.log(err));
 
 
-// app.use(cors());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
@@ -41,18 +28,7 @@ app.use((req, res, next) => {
 });
 
 
-// var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
 
-// app.use(morgan('combined', { stream: accessLogStream }))
-
-
-
-
-
-
-// var port = process.env.PORT || 3000;
-// var server = require('http').createServer(app);
-// var io = require('socket.io')(server);
 app.use((error, req, res, next) => {
   console.log(error);
   const status = error.statusCode || 500;
@@ -66,12 +42,10 @@ app.use("/", chat);
 app.use('/auth', authRoutes);
 
 
-// server.listen(port, function (req, res) {
-//   console.log("You are listening to port 3000");
-// });
+
 const mongoose = require("mongoose");
-// const message = require("./models/message");
-// const user = require("./models/user");
+
+
  mongoose.Promise = global.Promise;
  let con=mongoose.connect("mongodb+srv://sd949:sd949@swd-j8qfx.mongodb.net/chat?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
   con.then(() => {
@@ -107,52 +81,8 @@ const mongoose = require("mongoose");
        socket.leave(data.room)
         
     })
-    // socket.on('get message', function(data){
-    //   console.log('hi');
-    //   var messages= Chat.find((err,msg)=>{
-    //     if(err){
-    //       console.log(err);
-    //     }
-    //     else{
-    //       res.send(msg);
-
-    //     }
-
-    //   })
-
-    // }
-    // )
-    // router.get('/chat', (req, res) => {
-    //   var message = Chat.find((err, mess)=>{
-    //            if (err){
-    //              console.log(err);
-    //             }
-    //             else{
-                
-    //                res.send(mess);
-    //             }
-             
-    //         } );
-          
-    //      });
-
-  //   router.get('/record', (req, res) => {
-  //     var cursor = model.find((err, user)=>{
-  //         if (err){
-  //             console.log(err);
-  //         }
-  //         else{
-  //             // res.render('record',{
-  //             //         message : user
-  //             //     });
-  //             res.send(user);
-  //         }
-  //         // console.log(user.length);
-  //     } );
-      
-  // });
-
-//     //sending message
+    
+    //sending message
      socket.on('message',function(data){
       //  console.log(data.message);
 
