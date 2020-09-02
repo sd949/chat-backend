@@ -94,6 +94,7 @@ const mongoose = require("mongoose");
     
           chatMessage.save();
         });
+        socket.broadcast.emit('new message',{user:data.user,message:data.message});
      })
 
     
