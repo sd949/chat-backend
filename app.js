@@ -44,13 +44,14 @@ app.use('/auth', authRoutes);
 
 
 const mongoose = require("mongoose");
+let port= process.env.PORT || 8080;
 
 
  mongoose.Promise = global.Promise;
  let con=mongoose.connect("mongodb+srv://sd949:sd949@swd-j8qfx.mongodb.net/chat?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
   con.then(() => {
   console.log('Connected to MongoDB!!');
-    const server = app.listen(8080);
+    const server = app.listen(port);
     const io = require('./socket').init(server);
     io.on('connection',function(socket){
       console.log("User connected");
