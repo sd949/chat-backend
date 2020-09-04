@@ -1,6 +1,7 @@
 var express = require("express");
 var fs = require('fs');
 var path = require("path");
+var cors=require('cors');
 
 var bodyParser = require('body-parser');
 const Chat = require('./models/message');
@@ -40,6 +41,7 @@ app.use((error, req, res, next) => {
 
 app.use("/", chat);
 app.use('/auth', authRoutes);
+app.use(cors);
 
 
 
