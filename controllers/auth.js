@@ -40,9 +40,11 @@ exports.signup = async (req, res, next) => {
     try {
       const user = await User.findOne({ email: email });
       if (!user) {
+      
         const error = new Error('A user with this email could not be found.');
         error.statusCode = 401;
         throw error;
+        res.alert('A user with this email could not be found');
       }
       loadedUser = user;
       const isEqual = await bcrypt.compare(password, user.password);

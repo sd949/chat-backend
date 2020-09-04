@@ -20,7 +20,7 @@ router.get('/chat', (req, res) => {
                console.log(err);
               }
               else{
-                   console.log(mess);
+                  //  console.log(mess);
               
                  res.json(mess);
               }
