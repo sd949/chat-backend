@@ -1,4 +1,5 @@
 var express = require('express');
+const isAuth=require('../middleware/is-auth')
 
 const feedController = require('../controllers/chat');
 
@@ -13,7 +14,7 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
-router.get('/chat', (req, res) => {
+router.get('/chat',isAuth,  (req, res) => {
     console.log(" hi chat");
     var message = Chat.find((err, mess)=>{
              if (err){

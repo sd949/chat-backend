@@ -2,6 +2,7 @@ var express = require("express");
 var fs = require('fs');
 var path = require("path");
 var cors=require('cors');
+const session=require('express-session');
 
 var bodyParser = require('body-parser');
 const Chat = require('./models/message');
@@ -18,8 +19,14 @@ var router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
+app.use(
+  session(
+    {secret:'mySecret', resave:false,saveUninitialized:false}
+    ));
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+res.setHeader('Access-Control-Allow-Origin', '*');
+
+
   res.setHeader(
     'Access-Control-Allow-Methods',
     'OPTIONS, GET, POST, PUT, PATCH, DELETE'
@@ -30,6 +37,7 @@ app.use((req, res, next) => {
 
 
 
+
 app.use((error, req, res, next) => {
   console.log(error);
   const status = error.statusCode || 500;
@@ -37,6 +45,7 @@ app.use((error, req, res, next) => {
   const data = error.data;
   res.status(status).json({ message: message, data: data });
 });
+
 
 
 app.use("/", chat);

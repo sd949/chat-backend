@@ -34,6 +34,7 @@ exports.signup = async (req, res, next) => {
     }
   };
   exports.login = async (req, res, next) => {
+    console.log("inside login");
     const email = req.body.email;
     const password = req.body.password;
     let loadedUser;
@@ -53,6 +54,8 @@ exports.signup = async (req, res, next) => {
         error.statusCode = 401;
         throw error;
       }
+      // req.session.isL=true;
+      // res.setHeader('Set-Cookie','logIn=true;');
       const token = jwt.sign(
         {
           name:loadedUser.name,
@@ -70,6 +73,7 @@ exports.signup = async (req, res, next) => {
       next(err);
     }
   };
+
   
   // exports.getUserStatus = async (req, res, next) => {
   //   try {
